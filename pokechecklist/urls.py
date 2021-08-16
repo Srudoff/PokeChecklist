@@ -21,7 +21,7 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("checklist.urls", namespace='checklist')),
+    path("", include("checklist.urls", namespace="checklist")),
     #path('accounts/', include('allauth.urls')),
     url("", include("allauth.urls")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

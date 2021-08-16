@@ -5,12 +5,23 @@
 {% block body %}
 
     <div class="container">
-        <div class="card">poke here</div>
-        <div class="card">poke here</div>
-        <div class="card">poke here</div>
-        <div class="card">poke here</div>
-        
+        <form method="GET">
+            <input type="text" name = "name" placeholder="Search">
+            <button type="submit" class="search-btn">Search</button>
+        </form>
     </div>
+    <br>
+    <hr>
+    <br>
+    <div class="container">
+        {% for pokemon in cards %} 
+            <div class="card">
+                <div>{{ pokemon |title }}</div>
+                <!-- <img class="card-sprite" src="{{ pokemon.image_url }}"> -->
+            </div>
+        {% endfor %}
+    </div>
+
 
 
 

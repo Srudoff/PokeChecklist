@@ -1,9 +1,7 @@
-from django.shortcuts import render
-from django.views.generic import TemplateView, DetailView
+from django.views.generic import ListView, DetailView
 from .models import Card
-import requests
 
-class HomePageView(TemplateView):
+class HomePageView(ListView): 
     http_method_names = ["get"]
     template_name = "home.html"
     model = Card
@@ -13,13 +11,3 @@ class HomePageView(TemplateView):
 class CardDetailView(DetailView):
     template_name = "detail.html"
     model = Card
-
-
-def get_cards(request):
-    all_cards = {}
-    if 'name' in request.GET:
-        name = request.GET['name']
-        url = 'https://pokeapi.co/api/v2/pokemon/' % name
-        response = requests.get(url)
-        data = response.json()
-        pokemon = data['name']
