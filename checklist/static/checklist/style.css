@@ -7,34 +7,300 @@ body
 {
     display: flex;
     flex-wrap: wrap;
+    overflow: hidden;
 }
 
-#border
+#logout-link
 {
-    border: 1px solid red;
+    font-size: small;
+    text-align: right;
+}
+
+.border
+{
+    border: 1px solid tomato;
+}
+
+.search-bar
+{
+    width: 12%;
+}
+
+#search-input
+{
+    position: relative;
+    top: 25%;
+}
+
+.search-filter
+{
+    width: 12%;
+    min-width: 10%;
+    margin: 0px 3px;
+}
+
+#type-filter, #gen-filter, #gender-ratio-filter
+{
+    width: 100%;
+    height: 50%;
+}
+
+.pokeball-filter-grp
+{
+    display: block;
+    text-align: center;
+    margin-top: 5px;
+    padding-bottom: 3px;
+}
+
+
+.grayscale
+{
+    filter: grayscale(100%);
+}
+
+.grayscale:hover
+{
+    filter: grayscale(70%);
 }
 
 .card
 {
     border: 1px solid gray;
-    border-radius: 25px;
-    min-width: 200px;
-    min-height: 250px;
-    width: auto;
-    height: auto;
-    margin: 3px;
+    border-radius: 15px;
     text-align: center;
-    padding: 5px;
+    min-width: 90px;
+    background-color: white;
 }
 
-.card-image
+#card-all
 {
-    background-image: url(images/Pokemon-BG.png); /* background image by Midnitez-REMIX on DeviantArt */
-    background-size: cover;
-    background-repeat: no-repeat;
-    border-radius: 15px;
-    width: 95%;
-    height: 50%;
-    margin: 2.5% auto;
-    border: 1px solid green;
+    margin: 1px;
+    width: 6%;
+}
+
+#card-all .card-sprite
+{
+    padding: 5%;
+    margin: auto;
+    width: 90%;
+}
+
+#card-single
+{
+    margin: auto auto;
+    padding: 10px;
+    width: 100%;
+    height: 95%;
+}
+
+#card-single .card-sprite
+{
+    /* padding: 5%; */
+    margin: auto;
+    width: 42%;
+    display: inline; 
+}
+
+#card-single .card-sprite img
+{
+    width: 100%;
+}
+
+input[class="iframe-toggle"]
+{
+    display: none;
+}
+
+input[class="iframe-toggle"] + label
+{
+    display: none;
+}
+
+input[class="iframe-toggle"]:checked + label
+{
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+    background-color: rgba(3, 3, 3, 0.5);
+}
+
+input[class="iframe-toggle"]:checked + label iframe
+{
+    display: block;
+    width: 30%;
+    height: 100%;
+    z-index: 1;
+    border: none;
+    margin: auto auto;
+}
+
+input[class="search-filter"]
+{
+    display: none;
+}
+
+input[class="search-filter"] + label
+{
+    border: 1px solid darkslategray;
+    border-radius: 5px;
+    background-color: lightgray;
+    text-align: center;
+    padding: 0px 4px;
+    width: 100%;
+}
+
+input[class="search-filter"]:checked + label
+{
+    border: 1px solid darkviolet;
+    border-radius: 5px;
+    background-color: lavenderblush;
+    text-align: center;
+    width: 100%;
+}
+
+input[class="pokeball-filter"]
+{
+    display: none;
+}
+
+input[class="pokeball-filter"] + label
+{
+    border: 1px solid darkslategray;
+    border-radius: 5px;
+    background-color: lightgray;
+    text-align: center;
+    padding: 0px 4px;
+}
+
+input[class="pokeball-filter"]:checked + label
+{
+    border: 1px solid darkviolet;
+    border-radius: 5px;
+    background-color: lavenderblush;
+    text-align: center;
+}
+
+input[class="caught-pokeballs stat-change"]
+{
+    display: none;
+}
+
+#caught-pokeballs-group
+{
+    display: inline-block;
+    width: 40%;
+}
+
+.pokeball-filter img:hover
+{ 
+    position: relative;
+    top: -4px;
+}
+
+.type-icon
+{
+    border: 1px solid gray;
+    border-radius: 5px;
+    display: inline-block;
+    width: 60px;
+}
+
+#bug
+{
+    background-color: olivedrab;
+}
+
+#dark
+{
+    background-color: slategray;
+}
+
+#dragon
+{
+    background-color: darkcyan;
+}
+
+#electric
+{
+    background-color: yellow;
+}
+
+#fairy
+{
+    background-color: plum;
+}
+
+#fighting
+{
+    background-color: indianred;
+}
+
+#fire
+{
+    background-color: tomato;
+}
+
+#flying
+{
+    background-color: lightblue;
+}
+
+#ghost
+{
+    background-color: mediumslateblue;
+}
+
+#grass
+{
+    background-color: lawngreen;
+}
+
+#ground
+{
+    background-color: darkgoldenrod;
+}
+
+#ice
+{
+    background-color: darkturquoise;
+}
+
+#normal
+{
+    background-color: blanchedalmond;
+}
+
+#poison
+{
+    background-color: darkviolet;
+}
+
+#psychic
+{
+    background-color: deeppink;
+}
+
+#rock
+{
+    background-color: sienna;
+}
+
+#steel
+{
+    background-color: cadetblue;
+}
+
+#water
+{
+    background-color: cornflowerblue;
+}
+
+#None
+{
+    display: none;
 }

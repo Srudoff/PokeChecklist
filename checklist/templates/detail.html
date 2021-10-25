@@ -1,0 +1,398 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}{{ cards.poke_name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="card" id="card-single">
+            <div>#{{ cards.dexid }}. {{ cards.poke_name|title }}</div>
+            <div class="container">
+                <input type="checkbox" id="caught" name="{{ cards.dexid }}" class="stat-change" {% if cards.caught %}checked="true"{% endif %}>
+                <label for="caught" {% if cards.caught %} class="card-sprite" {% else %} class="card-sprite grayscale"{% endif %} id="sprite">
+                    <img src="{{ cards.poke_sprite }}">
+                </label>
+                <label for="caught-shiny" {% if cards.caught_shiny %} class="card-sprite" {% else %} class="card-sprite grayscale"{% endif %} id="sprite-shiny">
+                    <img src="{{ cards.shiny_sprite }}"> 
+                </label>
+                <div>&#10024;</div>
+                <input type="checkbox" id="caught-shiny" name="{{ cards.dexid }}" class="stat-change" {% if cards.caught_shiny %}checked="true"{% endif %}>
+            </div>
+            <div class="conatiner">
+                <div class="type-icon" id="{{ cards.type1 }}">{{ cards.type1|title }}</div>
+                <div class="type-icon" id="{{ cards.type2 }}">{{ cards.type2|title }}</div>
+            </div>
+            <br>
+            <table>
+                <tr>
+                    <td colspan="2">Stats</td>
+                    <td>&#10024;Stats</td>
+                </tr>
+                <tr>
+                    <td><label for="hp-iv">HP: </label></td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="hp-iv" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value="{{ option }}" {% if option == cards.hp_iv %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>                        
+                        <select name="{{ cards.dexid }}" id="hp-iv-shiny" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value="{{ option }}" {% if option == cards.hp_iv_shiny %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="attack-iv">Attack: </label></td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="attack-iv" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.attack_iv %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>                        
+                        <select name="{{ cards.dexid }}" id="attack-iv-shiny" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.attack_iv_shiny %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="defense-iv">Defense: </label></td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="defense-iv" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.defense_iv %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>                        
+                        <select name="{{ cards.dexid }}" id="defense-iv-shiny" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.defense_iv_shiny %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="sp-attack-iv">Sp.Attack: </label></td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="sp-attack-iv" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.sp_attack_iv %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>                       
+                        <select name="{{ cards.dexid }}" id="sp-attack-iv-shiny" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.sp_attack_iv_shiny %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="sp-defense-iv">Sp.Defense: </label></td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="sp-defense-iv" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.sp_defense_iv %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>                        
+                        <select name="{{ cards.dexid }}" id="sp-defense-iv-shiny" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value = "{{ option }}" {% if option == cards.sp_defense_iv_shiny %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><label for="speed-iv">Speed: </label></td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="speed-iv" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value="{{ option }}" {% if option == cards.speed_iv %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>                        
+                        <select name="{{ cards.dexid }}" id="speed-iv-shiny" class="stat-change">
+                            {% for option, name in cards.IV_JUDGE_CHOICES %}
+                            <option value="{{ option }}" {% if option == cards.speed_iv_shiny %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td><label for="nature">Nature:</label></td>
+                    <td><label for="ability">Ability:</label></td>
+                    <td><label for="nature-shiny">&#10024;Nature:</label></td>
+                    <td><label for="ability-shiny">&#10024;Ability:</label></td>
+                </tr>
+                <tr>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="nature" class="stat-change">
+                            {% for option, name in cards.NATURE_CHOICES %}
+                            <option value="{{ option }}" {% if option == cards.nature %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="ability" class="stat-change">
+                            <option value="{{ cards.ability1 }}" {% if cards.ability1 == cards.ability %}selected{% endif %}>{{ cards.ability1|title }}</option>
+                            {% if cards.ability2 %}<option value="{{ cards.ability2 }}" {% if cards.ability2 == cards.ability %}selected{% endif %}>{{ cards.ability2|title }}</option>{% endif %}
+                            {% if cards.hidden_ability %}<option value="{{ cards.hidden_ability }}" {% if cards.hidden_ability == cards.ability %}selected{% endif %}>{{ cards.hidden_ability|title }} (H)</option>{% endif %}
+                        </select>
+                    </td>
+                    <td>                        
+                        <select name="{{ cards.dexid }}" id="nature-shiny" class="stat-change">
+                            {% for option, name in cards.NATURE_CHOICES %}
+                            <option value="{{ option }}" {% if option == cards.nature %}selected{% endif %}>{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        <select name="{{ cards.dexid }}" id="ability-shiny" class="stat-change">
+                            <option value="{{ cards.ability1 }}" {% if cards.ability1 == cards.ability %}selected{% endif %}>{{ cards.ability1|title }}</option>
+                            {% if cards.ability2 %}<option value="{{ cards.ability2 }}" {% if cards.ability2 == cards.ability %}selected{% endif %}>{{ cards.ability2|title }}</option>{% endif %}
+                            {% if cards.hidden_ability %}<option value="{{ cards.hidden_ability }}" {% if cards.hidden_ability == cards.ability %}selected{% endif %}>{{ cards.hidden_ability|title }} (H)</option>{% endif %}
+                        </select>
+                    </td>
+                </tr>
+            </table>
+
+            <div class="container" id="caught-pokeballs-group">
+                <input type="checkbox" name="{{ cards.dexid }}" id="pokeball" class="caught-pokeballs stat-change" {% if cards.pokeball %}checked="true"{% endif %}>
+                <label for="pokeball" {% if not cards.pokeball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.pokeball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="greatball" class="caught-pokeballs stat-change" {% if cards.greatball %}checked="true"{% endif %}>
+                <label for="greatball" {% if not cards.greatball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.greatball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="ultraball" class="caught-pokeballs stat-change" {% if cards.ultraball %}checked="true"{% endif %}>
+                <label for="ultraball" {% if not cards.ultraball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.ultraball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="premierball" class="caught-pokeballs stat-change" {% if cards.premierball %}checked="true"{% endif %}>
+                <label for="premierball" {% if not cards.premierball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.premierball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="beastball" class="caught-pokeballs stat-change" {% if cards.beastball %}checked="true"{% endif %}>
+                <label for="beastball" {% if not cards.beastball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.beastball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="dreamball" class="caught-pokeballs stat-change" {% if cards.dreamball %}checked="true"{% endif %}>
+                <label for="dreamball" {% if not cards.dreamball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.dreamball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="safariball" class="caught-pokeballs stat-change" {% if cards.safariball %}checked="true"{% endif %}>
+                <label for="safariball" {% if not cards.safariball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.safariball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="sportball" class="caught-pokeballs stat-change" {% if cards.sportball %}checked="true"{% endif %}>
+                <label for="sportball" {% if not cards.sportball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.sportball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="diveball" class="caught-pokeballs stat-change" {% if cards.diveball %}checked="true"{% endif %}>
+                <label for="diveball" {% if not cards.diveball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.diveball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="duskball" class="caught-pokeballs stat-change" {% if cards.duskball %}checked="true"{% endif %}>
+                <label for="duskball" {% if not cards.duskball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.duskball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="healball" class="caught-pokeballs stat-change" {% if cards.healball %}checked="true"{% endif %}>
+                <label for="healball" {% if not cards.healball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.healball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="luxuryball" class="caught-pokeballs stat-change" {% if cards.luxuryball %}checked="true"{% endif %}>
+                <label for="luxuryball" {% if not cards.luxuryball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.luxuryball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="nestball" class="caught-pokeballs stat-change" {% if cards.nestball %}checked="true"{% endif %}>
+                <label for="nestball" {% if not cards.nestball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.nestball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="netball" class="caught-pokeballs stat-change" {% if cards.netball %}checked="true"{% endif %}>
+                <label for="netball" {% if not cards.netball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.netball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="quickball" class="caught-pokeballs stat-change" {% if cards.quickball %}checked="true"{% endif %}>
+                <label for="quickball" {% if not cards.quickball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.quickball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="repeatball" class="caught-pokeballs stat-change" {% if cards.repeatball %}checked="true"{% endif %}>
+                <label for="repeatball" {% if not cards.repeatball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.repeatball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="timerball" class="caught-pokeballs stat-change" {% if cards.timerball %}checked="true"{% endif %}>
+                <label for="timerball" {% if not cards.timerball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.timerball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="fastball" class="caught-pokeballs stat-change" {% if cards.fastball %}checked="true"{% endif %}>
+                <label for="fastball" {% if not cards.fastball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.fastball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="friendball" class="caught-pokeballs stat-change" {% if cards.friendball %}checked="true"{% endif %}>
+                <label for="friendball" {% if not cards.friendball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.friendball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="heavyball" class="caught-pokeballs stat-change" {% if cards.heavyball %}checked="true"{% endif %}>
+                <label for="heavyball" {% if not cards.heavyball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.heavyball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="levelball" class="caught-pokeballs stat-change" {% if cards.levelball %}checked="true"{% endif %}>
+                <label for="levelball" {% if not cards.levelball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.levelball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="loveball" class="caught-pokeballs stat-change" {% if cards.loveball %}checked="true"{% endif %}>
+                <label for="loveball" {% if not cards.loveball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.loveball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="lureball" class="caught-pokeballs stat-change" {% if cards.lureball %}checked="true"{% endif %}>
+                <label for="lureball" {% if not cards.lureball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.lureball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="moonball" class="caught-pokeballs stat-change" {% if cards.moonball %}checked="true"{% endif %}>
+                <label for="moonball" {% if not cards.moonball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.moonball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="masterball" class="caught-pokeballs stat-change" {% if cards.masterball %}checked="true"{% endif %}>
+                <label for="masterball" {% if not cards.masterball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.masterball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="cherishball" class="caught-pokeballs stat-change" {% if cards.cherishball %}checked="true"{% endif %}>
+                <label for="cherishball" {% if not cards.cherishball %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.cherishball_img }}">
+                </label>
+            </div>
+
+            <div class="container" id="caught-pokeballs-group">
+                <input type="checkbox" name="{{ cards.dexid }}" id="pokeball-shiny" class="caught-pokeballs stat-change" {% if cards.pokeball_shiny %}checked="true"{% endif %}>
+                <label for="pokeball-shiny" {% if not cards.pokeball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.pokeball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="greatball-shiny" class="caught-pokeballs stat-change" {% if cards.greatball_shiny %}checked="true"{% endif %}>
+                <label for="greatball-shiny" {% if not cards.greatball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.greatball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="ultraball-shiny" class="caught-pokeballs stat-change" {% if cards.ultraball_shiny %}checked="true"{% endif %}>
+                <label for="ultraball-shiny" {% if not cards.ultraball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.ultraball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="premierball-shiny" class="caught-pokeballs stat-change" {% if cards.premierball_shiny %}checked="true"{% endif %}>
+                <label for="premierball-shiny" {% if not cards.premierball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.premierball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="beastball-shiny" class="caught-pokeballs stat-change" {% if cards.beastball_shiny %}checked="true"{% endif %}>
+                <label for="beastball-shiny" {% if not cards.beastball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.beastball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="dreamball-shiny" class="caught-pokeballs stat-change" {% if cards.dreamball_shiny %}checked="true"{% endif %}>
+                <label for="dreamball-shiny" {% if not cards.dreamball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.dreamball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="safariball-shiny" class="caught-pokeballs stat-change" {% if cards.safariball_shiny %}checked="true"{% endif %}>
+                <label for="safariball-shiny" {% if not cards.safariball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.safariball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="sportball-shiny" class="caught-pokeballs stat-change" {% if cards.sportball_shiny %}checked="true"{% endif %}>
+                <label for="sportball-shiny" {% if not cards.sportball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.sportball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="diveball-shiny" class="caught-pokeballs stat-change" {% if cards.diveball_shiny %}checked="true"{% endif %}>
+                <label for="diveball-shiny" {% if not cards.diveball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.diveball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="duskball-shiny" class="caught-pokeballs stat-change" {% if cards.duskball_shiny %}checked="true"{% endif %}>
+                <label for="duskball-shiny" {% if not cards.duskball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.duskball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="healball-shiny" class="caught-pokeballs stat-change" {% if cards.healball_shiny %}checked="true"{% endif %}>
+                <label for="healball-shiny" {% if not cards.healball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.healball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="luxuryball-shiny" class="caught-pokeballs stat-change" {% if cards.luxuryball_shiny %}checked="true"{% endif %}>
+                <label for="luxuryball-shiny" {% if not cards.luxuryball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.luxuryball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="nestball-shiny" class="caught-pokeballs stat-change" {% if cards.nestball_shiny %}checked="true"{% endif %}>
+                <label for="nestball-shiny" {% if not cards.nestball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.nestball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="netball-shiny" class="caught-pokeballs stat-change" {% if cards.netball_shiny %}checked="true"{% endif %}>
+                <label for="netball-shiny" {% if not cards.netball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.netball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="quickball-shiny" class="caught-pokeballs stat-change" {% if cards.quickball_shiny %}checked="true"{% endif %}>
+                <label for="quickball-shiny" {% if not cards.quickball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.quickball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="repeatball-shiny" class="caught-pokeballs stat-change" {% if cards.repeatball_shiny %}checked="true"{% endif %}>
+                <label for="repeatball-shiny" {% if not cards.repeatball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.repeatball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="timerball-shiny" class="caught-pokeballs stat-change" {% if cards.timerball_shiny %}checked="true"{% endif %}>
+                <label for="timerball-shiny" {% if not cards.timerball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.timerball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="fastball-shiny" class="caught-pokeballs stat-change" {% if cards.fastball_shiny %}checked="true"{% endif %}>
+                <label for="fastball-shiny" {% if not cards.fastball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.fastball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="friendball-shiny" class="caught-pokeballs stat-change" {% if cards.friendball_shiny %}checked="true"{% endif %}>
+                <label for="friendball-shiny" {% if not cards.friendball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.friendball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="heavyball-shiny" class="caught-pokeballs stat-change" {% if cards.heavyball_shiny %}checked="true"{% endif %}>
+                <label for="heavyball-shiny" {% if not cards.heavyball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.heavyball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="levelball-shiny" class="caught-pokeballs stat-change" {% if cards.levelball_shiny %}checked="true"{% endif %}>
+                <label for="levelball-shiny" {% if not cards.levelball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.levelball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="loveball-shiny" class="caught-pokeballs stat-change" {% if cards.loveball_shiny %}checked="true"{% endif %}>
+                <label for="loveball-shiny" {% if not cards.loveball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.loveball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="lureball-shiny" class="caught-pokeballs stat-change" {% if cards.lureball_shiny %}checked="true"{% endif %}>
+                <label for="lureball-shiny" {% if not cards.lureball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.lureball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="moonball-shiny" class="caught-pokeballs stat-change" {% if cards.moonball_shiny %}checked="true"{% endif %}>
+                <label for="moonball-shiny" {% if not cards.moonball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.moonball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="masterball-shiny" class="caught-pokeballs stat-change" {% if cards.masterball_shiny %}checked="true"{% endif %}>
+                <label for="masterball-shiny" {% if not cards.masterball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.masterball_img }}">
+                </label>
+                <input type="checkbox" name="{{ cards.dexid }}" id="cherishball-shiny" class="caught-pokeballs stat-change" {% if cards.cherishball_shiny %}checked="true"{% endif %}>
+                <label for="cherishball-shiny" {% if not cards.cherishball_shiny %}class="grayscale"{% endif %} id="pokeball-sprite">
+                    <img src="{{ cards.cherishball_img }}">
+                </label>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block script %}
+<!-- <script>
+    const caught = {{ cards.caught|lower }};
+    const caught_shiny = {{ cards.caught_shiny|lower }};
+</script> -->
+{% endblock %}

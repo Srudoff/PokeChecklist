@@ -1,0 +1,18 @@
+<div class="container">
+    {% for pokemon in cards %} 
+        {% if pokemon.is_default and pokemon.generation == 'generation-i' %}
+        <div class="card" id="card-all">
+            <input type="checkbox" name="iframe-toggle" id="{{ pokemon.dexid }}" class="iframe-toggle">
+            <label for="{{ pokemon.dexid }}" class="close-iframe">
+                <iframe src="{% url 'checklist:detail' pokemon.pk %}"></iframe>
+            </label>
+            <label for="{{ pokemon.dexid }}">
+                <div>{{ pokemon.poke_name |title }}</div>
+                <div class="caught-check" {% if pokemon.caught %}id="is-caught"{% else %}id="not-caught"{% endif %}>
+                    <img class="card-sprite" src="{{ pokemon.image }}" id="{{ pokemon.dexid }}">
+                </div>
+            </label>
+        </div>
+        {% endif %}
+    {% endfor %}
+</div>

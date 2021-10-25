@@ -1,35 +1,157 @@
 {% extends "base.html" %}
 
-{% block title %}Home Page{% endblock %}
+{% block title %}Pokemon Checklist{% endblock %}
 
 {% block body %}
+{% if request.user.is_authenticated %}
 
-    <div class="container">
+<div id="logout-link"><a href="/logout/">Logout</a></div>
+
+<div class="container">
+    <div class="container search-bar">
         <form method="GET">
-            <input type="text" name = "name" placeholder="Search">
-            <button type="submit" class="search-btn">Search</button>
+            <input id="search-input" type="text" name="search" placeholder="Pokemon Name or #" class="search">
         </form>
     </div>
-    <br>
-    <hr>
-    <br>
-    <div class="container">
-        {% for pokemon in cards %} 
-            <div class="card">
-                <div>{{ pokemon |title }}</div>
-                <!-- <img class="card-sprite" src="{{ pokemon.image_url }}"> -->
-            </div>
-        {% endfor %}
+    <div class="container search-filter">
+        <select name="generation-selector" class="search-filter" id="gen-filter">
+            <option value="default" disabled>Generation</option>
+            <option value="all">All</option>
+            <option value="gen1" selected>Gen 1</option>
+            <option value="gen2">Gen 2</option>
+            <option value="gen3">Gen 3</option>
+            <option value="gen4">Gen 4</option>
+            <option value="gen5">Gen 5</option>
+            <option value="gen6">Gen 6</option>
+            <option value="gen7">Gen 7</option>
+            <option value="gen8">Gen 8</option>
+        </select>
+        
+        <select name="type-selector" class="search-filter" id="type-filter">
+            <option value="default" disabled selected>Type</option>
+            <option value="all">All</option>
+            <option value="bug">Bug</option>
+            <option value="dark">Dark</option>
+            <option value="dragon">Dragon</option>
+            <option value="electric">Electric</option> 
+            <option value="fairy">Fairy</option>
+            <option value="fighting">Fighting</option>
+            <option value="fire">Fire</option>
+            <option value="flying">Flying</option>
+            <option value="ghost">Ghost</option>
+            <option value="grass">Grass</option>
+            <option value="ground">Ground</option>
+            <option value="ice">Ice</option>
+            <option value="normal">Normal</option>
+            <option value="poison">Poison</option>
+            <option value="psychic">Psychic</option>
+            <option value="rock">Rock</option>
+            <option value="steel">Steel</option>
+            <option value="water">Water</option>
+        </select>
     </div>
+    <div class="container search-filter">
+        <input type="checkbox" class="search-filter" id="caught-filter">
+        <label for="caught-filter" class="search-filter">Caught</label>
+        
+        <input type="checkbox" class="search-filter" id="caught-shiny-filter">
+        <label for="caught-shiny-filter" class="search-filter">Caught Shiny</label>
+    </div>
+    <div class="container search-filter">
+        <input type="checkbox" class="search-filter" id="uncaught-filter">
+        <label for="uncaught-filter" class="search-filter">Not Caught</label>
+        
+        <input type="checkbox" class="search-filter" id="uncaught-shiny-filter">
+        <label for="uncaught-shiny-filter" class="search-filter">Not Caught Shiny</label>
+    </div>
+    <div class="container search-filter">
+        <input type="checkbox" class="search-filter" id="legendary-filter">
+        <label for="legendary-filter" class="search-filter">Legendary</label>
+        
+        <input type="checkbox" class="search-filter" id="mythical-filter">
+        <label for="mythical-filter" class="search-filter">Mythical</label>
+    </div>
+    <div class="container search-filter">
+        <select name="gender-selector" class="search-filter" id="gender-ratio-filter">
+            <option value="default" disabled selected>Gender Ratio</option>
+            <option value="all">All</option>
+            <option value="gender-neutral">No Gender</option>
+            <option value="all-male">All-Male</option>
+            <option value="all-female">All-Female</option> 
+        </select>
+        
+        <input type="checkbox" class="search-filter" id="gender-diff-filter">
+        <label for="gender-diff-filter" class="search-filter">Gender Differences</label>
+    </div>
+    <div class="container search-filter">
+        <input type="checkbox" class="search-filter" id="ha-filter">
+        <label for="ha-filter" class="search-filter">Has Hidden Ability</label>
+        
+        <input type="checkbox" class="search-filter" id="no-ha-filter">
+        <label for="no-ha-filter" class="search-filter">No Hidden Ability</label>
+    </div>
+</div>
+<div class="container pokeball-filter-grp">
+    <input type="checkbox" class="pokeball-filter" id="pokeball-filter">
+    <label for="pokeball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="greatball-filter">
+    <label for="greatball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/great-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="ultraball-filter">
+    <label for="ultraball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ultra-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="masterball-filter">
+    <label for="masterball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/master-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="premierball-filter">
+    <label for="premierball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/premier-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="beastball-filter">
+    <label for="beastball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/beast-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="cherishball-filter">
+    <label for="cherishball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/cherish-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="dreamball-filter">
+    <label for="dreamball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dream-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="safariball-filter">
+    <label for="safariball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/safari-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="sportball-filter">
+    <label for="sportball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/sport-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="diveball-filter">
+    <label for="diveball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dive-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="duskball-filter">
+    <label for="duskball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/dusk-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="healball-filter">
+    <label for="healball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heal-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="luxuryball-filter">
+    <label for="luxuryball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/luxury-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="nestball-filter">
+    <label for="nestball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/nest-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="netball-filter">
+    <label for="netball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/net-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="quickball-filter">
+    <label for="quickball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/quick-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="repeatball-filter">
+    <label for="repeatball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/repeat-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="timerball-filter">
+    <label for="timerball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/timer-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="fastball-filter">
+    <label for="fastball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/fast-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="friendball-filter">
+    <label for="friendball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/friend-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="heavyball-filter">
+    <label for="heavyball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/heavy-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="levelball-filter">
+    <label for="levelball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/level-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="loveball-filter">
+    <label for="loveball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/love-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="lureball-filter">
+    <label for="lureball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/lure-ball.png"></label>
+    <input type="checkbox" class="pokeball-filter" id="moonball-filter">
+    <label for="moonball-filter" class="pokeball-filter"><img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/moon-ball.png"></label>
+</div>
+<br>
+<hr>
+<br>
 
+<div id="replaceable-content">
+    {% include 'search-results-partial.html' %}
+</div>
 
-
-
-
-
-
-
-
-
-
+{% endif %}
 {% endblock %}
